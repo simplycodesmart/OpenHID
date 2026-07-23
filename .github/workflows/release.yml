@@ -1,0 +1,61 @@
+name: Release - Publish EXE
+
+on:
+  push:
+    branches: [ master, main ]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build & Publish (Single-file EXE)
+      run: |
+        dotnet publish src/OpenHardwarePlatform.Desktop/OpenHardwarePlatform.Desktop.csproj `
+          -c Release -r win-x64 --self-contained true `
+          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
+          -o publish/OpenHID
+
+    - name: Generate release tag
+      id: tag
+      run: |
+        $version = "v1.0.${{ github.run_number }}"
+        echo "version=$version" >> $env:GITHUB_OUTPUT
+        echo "tag=$version" >> $env:GITHUB_OUTPUT
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.tag.outputs.tag }}
+        name: "OpenHID ${{ steps.tag.outputs.tag }}"
+        body: |
+          ## OpenHID - Open-source HID debugging and analysis tool
+
+          Automated release from commit ${{ github.sha }}
+
+          ### Features
+          - HID device connection and management
+          - Real-time packet monitoring and logging
+          - Protocol decoding (Standard HID, Logitech HID++)
+          - Device descriptor explorer
+          - Packet analysis and reverse engineering tools
+          - Desktop application with Avalonia UI
+          - CLI interface
+          - Plugin system
+          - SDK for custom development
+        files: publish/OpenHID/OpenHardwarePlatform.Desktop.exe
+        generate_release_notes: true
