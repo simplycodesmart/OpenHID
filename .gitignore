@@ -111,3 +111,6 @@ Desktop.ini
 # Logs
 *.log
 error.log
+
+# Publish output
+publish/
