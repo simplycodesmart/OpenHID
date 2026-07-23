@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OpenHardwarePlatform.Desktop.ViewModels"
+             x:Class="OpenHardwarePlatform.Desktop.Views.HidConsoleView"
+             x:DataType="vm:HidConsoleViewModel">
+  <Grid ColumnDefinitions="*,1.2*" Margin="16" RowDefinitions="*">
+    <StackPanel Spacing="12" Margin="0,0,10,0">
+      <Border Classes="card">
+        <StackPanel Spacing="10">
+          <TextBlock Text="OUTPUT REPORT" FontSize="10" LetterSpacing="1.2" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+          <Grid ColumnDefinitions="80,*" Margin="0,0,0,4">
+            <TextBlock Text="Report ID" VerticalAlignment="Center" Opacity="0.6" FontSize="12" />
+            <TextBox Grid.Column="1" Text="{Binding ReportIdInput}" Watermark="0" FontFamily="JetBrains Mono, Consolas, monospace" />
+          </Grid>
+          <TextBox Text="{Binding OutputData}" Watermark="Hex bytes e.g. 01 00 FF"
+                   FontFamily="JetBrains Mono, Consolas, monospace" />
+          <Button Classes="primary" Content="⬆ Send Output" Command="{Binding SendOutputCommand}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+      </Border>
+
+      <Border Classes="card">
+        <StackPanel Spacing="10">
+          <TextBlock Text="INPUT REPORT" FontSize="10" LetterSpacing="1.2" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+          <TextBox Text="{Binding InputData}" Watermark="Received input appears here"
+                   FontFamily="JetBrains Mono, Consolas, monospace" IsReadOnly="True" />
+          <Button Classes="ghost" Content="⬇ Read Input" Command="{Binding ReadInputCommand}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+      </Border>
+
+      <Border Classes="card">
+        <StackPanel Spacing="10">
+          <TextBlock Text="FEATURE REPORT" FontSize="10" LetterSpacing="1.2" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+          <Grid ColumnDefinitions="80,*">
+            <TextBlock Text="Report ID" VerticalAlignment="Center" Opacity="0.6" FontSize="12" />
+            <TextBox Grid.Column="1" Text="{Binding ReportIdFeature}" Watermark="0" FontFamily="JetBrains Mono, Consolas, monospace" />
+          </Grid>
+          <TextBox Text="{Binding FeatureData}" Watermark="Feature hex bytes"
+                   FontFamily="JetBrains Mono, Consolas, monospace" />
+          <Button Classes="ghost" Content="⇄ Send Feature" Command="{Binding SendFeatureCommand}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+      </Border>
+    </StackPanel>
+
+    <Border Grid.Column="1" Classes="card" Padding="0">
+      <Grid RowDefinitions="Auto,*">
+        <Border Padding="14,10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBlock Text="CONSOLE LOG" FontSize="11" FontWeight="Bold" Opacity="0.6" VerticalAlignment="Center" />
+            <Button Grid.Column="1" Classes="ghost" Content="Clear" Command="{Binding ClearLogCommand}" Padding="10,4" />
+          </Grid>
+        </Border>
+        <ScrollViewer Grid.Row="1">
+          <ListBox ItemsSource="{Binding History}" Background="Transparent">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="vm:ConsoleEntry">
+                <Border Padding="12,8" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+                  <Grid ColumnDefinitions="90,50,*,Auto">
+                    <TextBlock Text="{Binding TimestampStr}" FontSize="11" FontFamily="JetBrains Mono, Consolas, monospace" Opacity="0.5" />
+                    <Border Grid.Column="1" Background="#1A00E5FF" CornerRadius="4" Padding="6,2" HorizontalAlignment="Left" Margin="0,0,8,0">
+                      <TextBlock Text="{Binding Direction}" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource PrimaryBrush}" />
+                    </Border>
+                    <TextBlock Grid.Column="2" Text="{Binding Data}" FontFamily="JetBrains Mono, Consolas, monospace" FontSize="12" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Grid.Column="3" Text="{Binding ReportId, StringFormat=ID:{0}}" FontSize="10" Opacity="0.45" Margin="8,0,0,0" />
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </ScrollViewer>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

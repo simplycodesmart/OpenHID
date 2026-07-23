@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OpenHardwarePlatform.Desktop.ViewModels"
+             x:Class="OpenHardwarePlatform.Desktop.Views.DocumentationView"
+             x:DataType="vm:DocumentationGeneratorViewModel">
+  <Grid ColumnDefinitions="*,*" Margin="16">
+    <StackPanel Spacing="12" Margin="0,0,10,0">
+      <Border Classes="card">
+        <StackPanel Spacing="10">
+          <TextBlock Text="DEVICE DOCS" FontSize="10" LetterSpacing="1.2" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+          <TextBox Text="{Binding DeviceName}" Watermark="Device name" />
+          <TextBox Text="{Binding VendorInfo}" Watermark="Vendor info" />
+          <TextBox Text="{Binding DescriptorInfo}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="100"
+                   Watermark="Descriptor / notes..." FontFamily="JetBrains Mono, Consolas, monospace" />
+          <TextBox Text="{Binding OutputPath}" Watermark="Output path (optional)" FontFamily="JetBrains Mono, Consolas, monospace" />
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Classes="primary" Content="MD" Command="{Binding GenerateMarkdownCommand}" />
+            <Button Classes="ghost" Content="HTML" Command="{Binding GenerateHtmlCommand}" />
+            <Button Classes="ghost" Content="JSON" Command="{Binding GenerateJsonCommand}" />
+            <Button Classes="ghost" Content="+ Section" Command="{Binding AddSectionCommand}" />
+            <Button Classes="ghost" Content="Clear" Command="{Binding ClearCommand}" />
+          </StackPanel>
+          <TextBlock Text="{Binding StatusText}" FontSize="11" Opacity="0.6" FontFamily="JetBrains Mono, Consolas, monospace" />
+        </StackPanel>
+      </Border>
+    </StackPanel>
+
+    <Border Grid.Column="1" Classes="card" Padding="0">
+      <Grid RowDefinitions="Auto,*">
+        <Border Padding="14,10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+          <TextBlock Text="SECTIONS" FontSize="11" FontWeight="Bold" Opacity="0.6" />
+        </Border>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Sections}" Background="Transparent">
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:DocSection">
+              <Border Padding="14,10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+                <StackPanel Spacing="4">
+                  <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
+                  <TextBlock Text="{Binding Content}" FontSize="12" Opacity="0.65" TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

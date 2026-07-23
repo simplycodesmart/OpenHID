@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OpenHardwarePlatform.Desktop.ViewModels"
+             x:Class="OpenHardwarePlatform.Desktop.Views.PacketDecoderView"
+             x:DataType="vm:PacketDecoderViewModel">
+  <Grid ColumnDefinitions="*,1.4*" Margin="16">
+    <StackPanel Spacing="12" Margin="0,0,10,0">
+      <Border Classes="card">
+        <StackPanel Spacing="10">
+          <TextBlock Text="RAW HEX INPUT" FontSize="10" LetterSpacing="1.2" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+          <TextBox Text="{Binding RawHex}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="120"
+                   Watermark="Paste hex bytes e.g. 01 00 08 FF"
+                   FontFamily="JetBrains Mono, Consolas, monospace" />
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Classes="primary" Content="⚡ Decode" Command="{Binding DecodeCommand}" />
+            <Button Classes="ghost" Content="Clear" Command="{Binding ClearCommand}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+      <Border Classes="card">
+        <StackPanel Spacing="6">
+          <TextBlock Text="SUMMARY" FontSize="10" LetterSpacing="1.2" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+          <TextBlock Text="{Binding DecodedOutput}" FontFamily="JetBrains Mono, Consolas, monospace" FontSize="12"
+                     TextWrapping="Wrap" Foreground="{DynamicResource PrimarySoftBrush}" />
+        </StackPanel>
+      </Border>
+    </StackPanel>
+
+    <Border Grid.Column="1" Classes="card" Padding="0">
+      <Grid RowDefinitions="Auto,*">
+        <Border Background="{DynamicResource SurfaceHighBrush}" Padding="12,8">
+          <Grid ColumnDefinitions="70,80,100,70,*">
+            <TextBlock Text="OFFSET" FontSize="10" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+            <TextBlock Grid.Column="1" Text="HEX" FontSize="10" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+            <TextBlock Grid.Column="2" Text="BINARY" FontSize="10" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+            <TextBlock Grid.Column="3" Text="DEC" FontSize="10" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+            <TextBlock Grid.Column="4" Text="MEANING" FontSize="10" FontWeight="Bold" Opacity="0.5" FontFamily="JetBrains Mono, Consolas, monospace" />
+          </Grid>
+        </Border>
+        <ListBox Grid.Row="1" ItemsSource="{Binding DecodedFields}" Background="Transparent">
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:DecodedField">
+              <Border Padding="12,7" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="70,80,100,70,*">
+                  <TextBlock Text="{Binding Offset}" FontSize="11" Opacity="0.55" />
+                  <TextBlock Grid.Column="1" Text="{Binding HexValue}" FontSize="11" FontFamily="JetBrains Mono, Consolas, monospace" Foreground="{DynamicResource PrimaryBrush}" />
+                  <TextBlock Grid.Column="2" Text="{Binding BinaryValue}" FontSize="11" FontFamily="JetBrains Mono, Consolas, monospace" Opacity="0.7" />
+                  <TextBlock Grid.Column="3" Text="{Binding DecimalValue}" FontSize="11" />
+                  <TextBlock Grid.Column="4" Text="{Binding Interpretation}" FontSize="11" Foreground="{DynamicResource SecondaryBrush}" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

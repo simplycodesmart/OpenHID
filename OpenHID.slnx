@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OpenHardwarePlatform.Abstractions/OpenHardwarePlatform.Abstractions.csproj" />
+    <Project Path="src/OpenHardwarePlatform.Cli/OpenHardwarePlatform.Cli.csproj" />
+    <Project Path="src/OpenHardwarePlatform.Core/OpenHardwarePlatform.Core.csproj" />
+    <Project Path="src/OpenHardwarePlatform.Desktop/OpenHardwarePlatform.Desktop.csproj" />
+    <Project Path="src/OpenHardwarePlatform.Transports.Hid/OpenHardwarePlatform.Transports.Hid.csproj" />
+    <Project Path="src/OpenHardwarePlatform.Protocols/OpenHardwarePlatform.Protocols.csproj" />
+    <Project Path="src/OpenHID.SDK/OpenHID.SDK.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OpenHardwarePlatform.Core.Tests/OpenHardwarePlatform.Core.Tests.csproj" />
+    <Project Path="tests/OpenHardwarePlatform.Desktop.Tests/OpenHardwarePlatform.Desktop.Tests.csproj" />
+    <Project Path="tests/OpenHardwarePlatform.Transports.Hid.Tests/OpenHardwarePlatform.Transports.Hid.Tests.csproj" />
+  </Folder>
+</Solution>

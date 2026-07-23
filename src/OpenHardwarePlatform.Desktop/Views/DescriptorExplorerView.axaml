@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OpenHardwarePlatform.Desktop.ViewModels"
+             x:Class="OpenHardwarePlatform.Desktop.Views.DescriptorExplorerView"
+             x:DataType="vm:DescriptorExplorerViewModel">
+  <Grid ColumnDefinitions="*,*" Margin="16" RowDefinitions="Auto,*">
+    <TextBlock Grid.ColumnSpan="2" Text="REPORT DESCRIPTOR" FontSize="10" LetterSpacing="1.2" FontWeight="Bold"
+               Opacity="0.5" Margin="0,0,0,10" FontFamily="JetBrains Mono, Consolas, monospace" />
+
+    <Border Grid.Row="1" Classes="card" Margin="0,0,8,0">
+      <Grid RowDefinitions="Auto,*">
+        <TextBlock Text="RAW HEX" FontSize="11" FontWeight="Bold" Opacity="0.6" Margin="0,0,0,8" />
+        <ScrollViewer Grid.Row="1">
+          <TextBox Text="{Binding RawDescriptor}" AcceptsReturn="True" TextWrapping="Wrap"
+                   FontFamily="JetBrains Mono, Consolas, monospace" FontSize="12"
+                   MinHeight="200" Watermark="Descriptor bytes will appear here..." />
+        </ScrollViewer>
+      </Grid>
+    </Border>
+
+    <Border Grid.Row="1" Grid.Column="1" Classes="card" Margin="8,0,0,0" Padding="0">
+      <Grid RowDefinitions="Auto,*">
+        <Border Padding="14,10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+          <TextBlock Text="PARSED ITEMS" FontSize="11" FontWeight="Bold" Opacity="0.6" />
+        </Border>
+        <ListBox Grid.Row="1" ItemsSource="{Binding DescriptorItems}" Background="Transparent">
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:DescriptorItem">
+              <Border Padding="12,8" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="70,*">
+                  <TextBlock Text="{Binding Offset, StringFormat=0x{0:X4}}" FontFamily="JetBrains Mono, Consolas, monospace"
+                             FontSize="11" Foreground="{DynamicResource PrimaryBrush}" VerticalAlignment="Center" />
+                  <StackPanel Grid.Column="1" Spacing="2">
+                    <TextBlock Text="{Binding Type}" FontWeight="SemiBold" FontSize="12" />
+                    <TextBlock Text="{Binding Size, StringFormat={}{0} bytes}" FontSize="10" Opacity="0.5" />
+                  </StackPanel>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

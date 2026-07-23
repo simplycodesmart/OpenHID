@@ -1,0 +1,30 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="OpenHardwarePlatform.Desktop.App"
+             RequestedThemeVariant="Dark">
+  <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://OpenHardwarePlatform.Desktop/Styles/Theme.axaml" />
+  </Application.Styles>
+  <Application.Resources>
+    <SolidColorBrush x:Key="BgBrush">#0B0E14</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceBrush">#10131A</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceLowBrush">#191C22</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceMidBrush">#1D2026</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceHighBrush">#272A31</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceHighestBrush">#32353C</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderBrush">#30363D</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderAccentBrush">#3B494C</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryBrush">#00E5FF</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimarySoftBrush">#C3F5FF</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryDimBrush">#00DAF3</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryBrush">#DDB7FF</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryContainerBrush">#6F00BE</SolidColorBrush>
+    <SolidColorBrush x:Key="TertiaryBrush">#6BFF8F</SolidColorBrush>
+    <SolidColorBrush x:Key="ErrorBrush">#FFB4AB</SolidColorBrush>
+    <SolidColorBrush x:Key="OnSurfaceBrush">#E1E2EB</SolidColorBrush>
+    <SolidColorBrush x:Key="OnSurfaceVariantBrush">#BAC9CC</SolidColorBrush>
+    <SolidColorBrush x:Key="OutlineBrush">#849396</SolidColorBrush>
+    <SolidColorBrush x:Key="GlassBrush">#CC161B22</SolidColorBrush>
+  </Application.Resources>
+</Application>
